@@ -1,26 +1,92 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      words: "",
+      alphabet: "",
+      sorted: "",
+    };
+  }
+
+  alienDictionary() {
+    var words = this.state.words.split(" ");
+    var order = this.state.alphabet;
+
+    for (let i = 0; i < words.length - 1; i++) {
+      const word1 = words[i],
+        word2 = words[i + 1];
+      let j = 0,
+        k = 0;
+      while (j < word1.length || k < word2.length) {
+        if (k === word2.length) {
+          this.setState({
+            sorted: "false",
+          });
+          return;
+        } else if (
+          j === word1.length ||
+          order.indexOf(word1[j]) < order.indexOf(word2[k])
+        ) {
+          break;
+        }
+        if (order.indexOf(word1[j]) > order.indexOf(word2[k])) {
+          this.setState({
+            sorted: "false",
+          });
+          return;
+        }
+        j += 1;
+        k += 1;
+      }
+    }
+    this.setState({
+      sorted: "true",
+    });
+    return;
+  }
+
+  handleInput(key, value) {
+    this.setState({
+      [key]: value,
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+          <section>
+            <a>
+              <input
+                onChange={(e) => this.handleInput("words", e.target.value)}
+              ></input>
+              <input
+                onChange={(e) => this.handleInput("alphabet", e.target.value)}
+              ></input>
+              <button onClick={(e) => this.alienDictionary()}>test</button>
+              {this.state.sorted}
+            </a>
+          </section>
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
