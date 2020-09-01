@@ -12,9 +12,9 @@ class App extends Component {
     };
   }
 
-  alienDictionary() {
-    var words = this.state.words.split(" ");
-    var order = this.state.alphabet;
+  alienDictionary(wordString, alphabet) {
+    var words = wordString.split(" ");
+    var order = alphabet;
 
     for (let i = 0; i < words.length - 1; i++) {
       const word1 = words[i],
@@ -74,12 +74,48 @@ class App extends Component {
           <section>
             <a>
               <input
+                placeholder="Words"
                 onChange={(e) => this.handleInput("words", e.target.value)}
               ></input>
               <input
+                placeholder="Alphabet"
                 onChange={(e) => this.handleInput("alphabet", e.target.value)}
               ></input>
-              <button onClick={(e) => this.alienDictionary()}>test</button>
+              <button
+                onClick={(e) =>
+                  this.alienDictionary(this.state.words, this.state.alphabet)
+                }
+              >
+                test
+              </button>
+              <p>
+                Example: Words = apple app || Alphabet =
+                abcdefghijklmnopqrstuvwxyz
+              </p>
+              {this.state.sorted}
+            </a>
+          </section>
+          <section>
+            <a>
+              <input
+                placeholder="Words"
+                onChange={(e) => this.handleInput("words", e.target.value)}
+              ></input>
+              <input
+                placeholder="Alphabet"
+                onChange={(e) => this.handleInput("alphabet", e.target.value)}
+              ></input>
+              <button
+                onClick={(e) =>
+                  this.alienDictionary(this.state.words, this.state.alphabet)
+                }
+              >
+                test
+              </button>
+              <p>
+                Example: Words = apple app || Alphabet =
+                abcdefghijklmnopqrstuvwxyz
+              </p>
               {this.state.sorted}
             </a>
           </section>
