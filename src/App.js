@@ -9,6 +9,9 @@ class App extends Component {
       words: "",
       alphabet: "",
       sorted: "",
+      stringNum1: "",
+      stringNum2: "",
+      stringOutput: "",
     };
   }
 
@@ -49,6 +52,39 @@ class App extends Component {
     return;
   }
 
+  addStrings(num1, num2) {
+    if (num2.length > num1.length) return this.addStrings(num2, num1);
+
+    let i = num1.length - 1;
+    let j = num2.length - 1;
+    let out = "";
+    let carry = 0;
+
+    while (i >= 0) {
+      const digit1 = num1.charAt(i) - "0";
+      const digit2 = j < 0 ? 0 : num2.charAt(j) - "0";
+
+      let sum = carry + digit1 + digit2;
+      carry = 0;
+      if (sum > 9) {
+        carry = 1;
+        sum %= 10;
+      }
+
+      out = sum.toString() + out;
+
+      i--;
+      j--;
+    }
+
+    if (carry > 0) out = carry.toString() + out;
+
+    this.setState({
+      stringOutput: out,
+    });
+    return;
+  }
+
   handleInput(key, value) {
     this.setState({
       [key]: value,
@@ -56,6 +92,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.stringOutput);
     return (
       <div className="App">
         <header className="App-header">
@@ -98,25 +135,25 @@ class App extends Component {
           <section>
             <a>
               <input
-                placeholder="Words"
-                onChange={(e) => this.handleInput("words", e.target.value)}
+                placeholder="String Num 1"
+                onChange={(e) => this.handleInput("stringNum1", e.target.value)}
               ></input>
               <input
-                placeholder="Alphabet"
-                onChange={(e) => this.handleInput("alphabet", e.target.value)}
+                placeholder="String Num 2"
+                onChange={(e) => this.handleInput("stringNum2", e.target.value)}
               ></input>
               <button
                 onClick={(e) =>
-                  this.alienDictionary(this.state.words, this.state.alphabet)
+                  this.addStrings(this.state.stringNum1, this.state.stringNum2)
                 }
               >
                 test
               </button>
               <p>
-                Example: Words = apple app || Alphabet =
-                abcdefghijklmnopqrstuvwxyz
+                Example: String Num 1 = 456 String Num 2 = 6540 || String Output
+                = "6996"
               </p>
-              {this.state.sorted}
+              {this.state.stringOutput}
             </a>
           </section>
         </header>
