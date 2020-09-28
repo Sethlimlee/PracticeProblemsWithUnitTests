@@ -85,3 +85,34 @@ test("addStrings Method ", () => {
 });
 
 //#endregion addStrings
+
+//#region mergeSortArray
+
+function mergeSortArrays(stringArray1, stringArray2) {
+  var array1 = stringArray1.split(",");
+  var array2 = stringArray2.split(",");
+
+  var arrayCombined = array1.concat(array2);
+  var newArray = [];
+  for (let i = 0; i < arrayCombined.length; i++) {
+    if (arrayCombined[i] !== "0") {
+      newArray.push(arrayCombined[i]);
+    }
+  }
+  newArray.sort((a, b) => {
+    return a - b;
+  });
+  var newStringArray = newArray.join(" , ");
+  return newStringArray;
+}
+
+test("mergeSortArrays method ", () => {
+  expect(mergeSortArrays("1,2,3,4,0", "1,2,3,4,0")).toBe(
+    "1 , 1 , 2 , 2 , 3 , 3 , 4 , 4"
+  );
+  expect(mergeSortArrays("1,2,3,1,0", "5,8,1,4,2")).toBe(
+    "1 , 1 , 1 , 2 , 2 , 3 , 4 , 5 , 8"
+  );
+});
+
+//#endregion mergeSortArray

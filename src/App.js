@@ -12,6 +12,9 @@ class App extends Component {
       stringNum1: "",
       stringNum2: "",
       stringOutput: "",
+      stringArray1: "",
+      stringArray2: "",
+      mergeSortArrayOutput: "",
     };
   }
 
@@ -85,6 +88,27 @@ class App extends Component {
     return;
   }
 
+  mergeSortArrays(stringArray1, stringArray2) {
+    var array1 = stringArray1.split(",");
+    var array2 = stringArray2.split(",");
+
+    var arrayCombined = array1.concat(array2);
+    var newArray = [];
+    for (let i = 0; i < arrayCombined.length; i++) {
+      if (arrayCombined[i] !== "0") {
+        console.log(arrayCombined[i]);
+        newArray.push(arrayCombined[i]);
+      }
+    }
+    newArray.sort((a, b) => {
+      return a - b;
+    });
+    var newStringArray = newArray.join(" , ");
+    this.setState({
+      mergeSortArrayOutput: newStringArray,
+    });
+  }
+
   handleInput(key, value) {
     this.setState({
       [key]: value,
@@ -154,6 +178,37 @@ class App extends Component {
                 = "6996"
               </p>
               {this.state.stringOutput}
+            </a>
+          </section>
+          <section>
+            <a>
+              <input
+                placeholder="Array 1"
+                onChange={(e) =>
+                  this.handleInput("stringArray1", e.target.value)
+                }
+              ></input>
+              <input
+                placeholder="Array 2"
+                onChange={(e) =>
+                  this.handleInput("stringArray2", e.target.value)
+                }
+              ></input>
+              <button
+                onClick={(e) =>
+                  this.mergeSortArrays(
+                    this.state.stringArray1,
+                    this.state.stringArray2
+                  )
+                }
+              >
+                test
+              </button>
+              <p>
+                Example: Array1 = 1,2,3,1,0 Array2 = 5,8,1,4,2 || Output = 1 , 1
+                , 1 , 2 , 2 , 3 , 4 , 5 , 8
+              </p>
+              {this.state.mergeSortArrayOutput}
             </a>
           </section>
         </header>
