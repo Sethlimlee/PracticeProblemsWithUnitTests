@@ -116,3 +116,41 @@ test("mergeSortArrays method ", () => {
 });
 
 //#endregion mergeSortArray
+
+//#region moveZeroes
+
+var moveZeros = function (arr) {
+  var count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === 0) {
+      count++;
+    }
+  }
+
+  var newArray = arr.filter((element) => element !== 0);
+
+  for (let j = 0; j < count; j++) {
+    newArray.push(0);
+  }
+
+  return newArray;
+};
+
+test("moveZeros method ", () => {
+  expect(
+    moveZeros([9, 0, 9, 1, 2, 1, 1, 3, 1, 9, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0])
+  ).toStrictEqual([9, 9, 1, 2, 1, 1, 3, 1, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  expect(moveZeros([9, 0, 9, 1, 0, 0, 1, 2, 0])).toStrictEqual([
+    9,
+    9,
+    1,
+    1,
+    2,
+    0,
+    0,
+    0,
+    0,
+  ]);
+});
+
+//#endregion moveZeroes

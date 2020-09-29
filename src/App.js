@@ -15,6 +15,8 @@ class App extends Component {
       stringArray1: "",
       stringArray2: "",
       mergeSortArrayOutput: "",
+      moveZeroStringArray: "",
+      moveZeroArrayOutput: "",
     };
   }
 
@@ -109,6 +111,30 @@ class App extends Component {
     });
   }
 
+  moveZeroes(stringArr) {
+    var arr = stringArr.split(",");
+    console.log(arr);
+    var count = 0;
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === "0") {
+        count++;
+      }
+    }
+
+    var newArray = arr.filter((element) => element !== "0");
+
+    for (let j = 0; j < count; j++) {
+      newArray.push("0");
+    }
+    console.log(count);
+
+    var zeroStringArray = newArray.join(" , ");
+
+    this.setState({
+      moveZeroArrayOutput: zeroStringArray,
+    });
+  }
+
   handleInput(key, value) {
     this.setState({
       [key]: value,
@@ -116,7 +142,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.stringOutput);
     return (
       <div className="App">
         <header className="App-header">
@@ -209,6 +234,27 @@ class App extends Component {
                 , 1 , 2 , 2 , 3 , 4 , 5 , 8
               </p>
               {this.state.mergeSortArrayOutput}
+            </a>
+          </section>
+          <section>
+            <a>
+              <input
+                placeholder="Array"
+                onChange={(e) =>
+                  this.handleInput("moveZeroStringArray", e.target.value)
+                }
+              ></input>
+              <button
+                onClick={(e) => this.moveZeroes(this.state.moveZeroStringArray)}
+              >
+                test
+              </button>
+              <p>
+                Example: Array = 9,0,9,1,2,1,1,3,1,9,0,0,9,0,0,0,0,0,0,0 ||
+                Output = 9, 9, 1, 2, 1, 1, 3, 1, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0
+              </p>
+              {this.state.moveZeroArrayOutput}
             </a>
           </section>
         </header>
